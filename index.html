@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shijia Tang — Data Science & AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #fdf8f3;
+      --blush: #f2c4b8;
+      --rose: #d9836e;
+      --dusty-teal: #7aada8;
+      --sage: #9db89a;
+      --warm-brown: #6b4c3b;
+      --soft-navy: #2c3e50;
+      --muted-gold: #c9a96e;
+      --light-pink: #fce8e3;
+      --off-white: #fffaf6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--soft-navy); overflow-x: hidden; }
+    .blob { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.18; pointer-events: none; z-index: 0; }
+    .blob-1 { width: 500px; height: 500px; background: var(--blush); top: -100px; right: -100px; }
+    .blob-2 { width: 400px; height: 400px; background: var(--dusty-teal); bottom: 20%; left: -150px; }
+    .blob-3 { width: 300px; height: 300px; background: var(--sage); top: 50%; right: -50px; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(253,248,243,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(209,131,110,0.15); }
+    .nav-logo { font-family: 'Caveat', cursive; font-size: 1.6rem; color: var(--rose); font-weight: 600; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; color: var(--warm-brown); text-decoration: none; text-transform: uppercase; transition: color 0.25s; }
+    .nav-links a:hover { color: var(--rose); }
+    #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 6rem 5rem 4rem; position: relative; gap: 3rem; }
+    .hero-text { position: relative; z-index: 1; }
+    .hero-tag { display: inline-block; font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--dusty-teal); margin-bottom: 0.75rem; letter-spacing: 0.03em; }
+    .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 5rem); line-height: 1.1; color: var(--warm-brown); margin-bottom: 1.25rem; }
+    .hero-name em { font-style: italic; color: var(--rose); }
+    .hero-subtitle { font-size: 1.05rem; color: #7a6050; line-height: 1.7; max-width: 420px; margin-bottom: 2rem; }
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { padding: 0.7rem 1.6rem; border-radius: 50px; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; text-decoration: none; transition: all 0.25s; display: inline-flex; align-items: center; gap: 0.4rem; }
+    .btn-primary { background: var(--rose); color: white; border: 2px solid var(--rose); }
+    .btn-primary:hover { background: var(--warm-brown); border-color: var(--warm-brown); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--rose); border: 2px solid var(--blush); }
+    .btn-outline:hover { border-color: var(--rose); background: var(--light-pink); transform: translateY(-2px); }
+    .hero-visual { display: flex; flex-direction: column; align-items: center; gap: 2rem; position: relative; z-index: 1; }
+    .avatar-frame { width: 260px; height: 260px; border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%; background: linear-gradient(135deg, var(--blush), var(--dusty-teal)); display: flex; align-items: center; overflow: hidden; justify-content: center; font-size: 6rem; animation: morph 8s ease-in-out infinite; box-shadow: 0 20px 60px rgba(217,131,110,0.25); }
+    @keyframes morph { 0%, 100% { border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%; } 33% { border-radius: 45% 55% 40% 60% / 60% 45% 55% 40%; } 66% { border-radius: 55% 45% 60% 40% / 40% 60% 45% 55%; } }
+    .stat-pills { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
+    .stat-pill { background: white; border: 1px solid rgba(209,131,110,0.2); border-radius: 50px; padding: 0.5rem 1.1rem; font-size: 0.8rem; color: var(--warm-brown); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .stat-pill strong { color: var(--rose); font-weight: 600; }
+    section { padding: 5rem 5rem; position: relative; z-index: 1; }
+    .section-label { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--dusty-teal); letter-spacing: 0.08em; margin-bottom: 0.4rem; display: block; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--warm-brown); margin-bottom: 2.5rem; line-height: 1.2; }
+    #about { background: var(--off-white); }
+    .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { font-size: 1.02rem; line-height: 1.85; color: #5c4a3a; margin-bottom: 1.2rem; }
+    .hobby-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+    .chip { background: var(--light-pink); color: var(--rose); border-radius: 50px; padding: 0.35rem 0.9rem; font-size: 0.82rem; font-weight: 500; }
+    .chip.teal { background: #e0f2f0; color: var(--dusty-teal); }
+    .chip.sage { background: #e8f0e7; color: #4a7a47; }
+    .lang-box { background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+    .lang-box h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--warm-brown); margin-bottom: 1.2rem; }
+    .lang-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 0.9rem; color: #5c4a3a; }
+    .lang-item:last-child { border-bottom: none; }
+    .lang-level { font-size: 0.75rem; background: var(--light-pink); color: var(--rose); padding: 0.15rem 0.6rem; border-radius: 50px; }
+    #skills { background: var(--cream); }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .skill-card { background: white; border-radius: 20px; padding: 1.75rem; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: transform 0.25s, box-shadow 0.25s; border-top: 3px solid transparent; }
+    .skill-card:hover { transform: translateY(-4px); box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+    .skill-card.rose { border-top-color: var(--rose); }
+    .skill-card.teal { border-top-color: var(--dusty-teal); }
+    .skill-card.sage { border-top-color: var(--sage); }
+    .skill-card h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--warm-brown); margin-bottom: 1rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-tag { font-size: 0.78rem; background: var(--cream); color: #6b4c3b; border-radius: 6px; padding: 0.3rem 0.7rem; border: 1px solid rgba(0,0,0,0.08); }
+    #experience { background: var(--off-white); }
+    .timeline { position: relative; max-width: 800px; }
+    .timeline::before { content: ''; position: absolute; left: 16px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--blush), var(--dusty-teal)); }
+    .timeline-item { display: grid; grid-template-columns: 48px 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+    .timeline-dot { width: 34px; height: 34px; border-radius: 50%; background: white; border: 3px solid var(--rose); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; z-index: 1; position: relative; box-shadow: 0 2px 12px rgba(217,131,110,0.25); margin-top: 4px; }
+    .timeline-dot.teal { border-color: var(--dusty-teal); }
+    .timeline-card { background: white; border-radius: 18px; padding: 1.5rem 1.75rem; box-shadow: 0 3px 18px rgba(0,0,0,0.06); transition: box-shadow 0.25s; }
+    .timeline-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+    .timeline-meta { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.4rem; gap: 1rem; }
+    .timeline-company { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--warm-brown); font-weight: 600; }
+    .timeline-date { font-size: 0.78rem; color: #a08070; white-space: nowrap; background: var(--cream); padding: 0.2rem 0.7rem; border-radius: 50px; }
+    .timeline-role { font-size: 0.85rem; color: var(--rose); font-weight: 500; margin-bottom: 0.75rem; }
+    .timeline-desc { font-size: 0.88rem; color: #5c4a3a; line-height: 1.7; margin-bottom: 0.8rem; }
+    .skill-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-badge { font-size: 0.72rem; background: var(--light-pink); color: var(--rose); border-radius: 50px; padding: 0.2rem 0.6rem; font-weight: 500; }
+    .skill-badge.teal { background: #e0f2f0; color: var(--dusty-teal); }
+    #projects { background: var(--cream); }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .project-card { background: white; border-radius: 20px; padding: 1.75rem; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: transform 0.25s, box-shadow 0.25s; position: relative; overflow: hidden; }
+    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--rose), var(--dusty-teal)); }
+    .project-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+    .project-date { font-size: 0.75rem; color: #a08070; margin-bottom: 0.6rem; }
+    .project-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--warm-brown); margin-bottom: 0.75rem; line-height: 1.35; }
+    .project-desc { font-size: 0.84rem; color: #6a5545; line-height: 1.65; margin-bottom: 1rem; }
+    #education { background: var(--off-white); }
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .edu-card { background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.06); display: flex; gap: 1.25rem; align-items: flex-start; transition: transform 0.25s; }
+    .edu-card:hover { transform: translateY(-3px); }
+    .edu-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .edu-icon.rose { background: var(--light-pink); }
+    .edu-icon.teal { background: #e0f2f0; }
+    .edu-info h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--warm-brown); margin-bottom: 0.2rem; }
+    .edu-degree { font-size: 0.85rem; color: var(--rose); font-weight: 500; margin-bottom: 0.4rem; }
+    .edu-detail { font-size: 0.8rem; color: #8a7060; line-height: 1.55; }
+    .edu-date { font-size: 0.75rem; background: var(--cream); color: #a08070; border-radius: 50px; padding: 0.15rem 0.65rem; display: inline-block; margin-top: 0.5rem; }
+    #contact { background: linear-gradient(135deg, #2c3e50 0%, #3d5a6e 50%, #4a6b6a 100%); padding: 5rem; text-align: center; color: white; }
+    #contact .section-label { color: rgba(255,255,255,0.6); }
+    #contact .section-title { color: white; margin-bottom: 1rem; }
+    .contact-sub { font-size: 1rem; color: rgba(255,255,255,0.7); margin-bottom: 2.5rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+    .contact-link { display: flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.5rem; border-radius: 50px; text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: all 0.25s; border: 1.5px solid rgba(255,255,255,0.25); color: white; }
+    .contact-link:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.5); transform: translateY(-2px); }
+    footer { background: #1e2d3d; text-align: center; padding: 1.5rem; font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; padding: 6rem 2rem 3rem; text-align: center; }
+      .hero-visual { display: none; }
+      .hero-buttons { justify-content: center; }
+      section { padding: 4rem 2rem; }
+      .about-grid, .skills-grid, .projects-grid, .edu-grid { grid-template-columns: 1fr; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      #contact { padding: 4rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <nav>
+    <a href="#hero" class="nav-logo">Shijia ✦</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-text fade-in">
+      <span class="hero-tag">✦ Data Science & AI — Gothenburg, Sweden</span>
+      <h1 class="hero-name">Hi, I'm<br><em>Shijia Tang</em></h1>
+      <p class="hero-subtitle">
+        I turn data into impact, from NLP and machine learning to behavior analytics and AI-driven products. Curious, collaborative, and always excited by what's next.
+      </p>
+      <div class="hero-buttons">
+        <a href="#experience" class="btn btn-primary">View My Work ↓</a>
+        <a href="mailto:sjtang100@gmail.com" class="btn btn-outline">Say Hello ✉</a>
+        <a href="https://www.linkedin.com/in/shijiatang-925a35204" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+      </div>
+      <div class="stat-pills" style="margin-top: 1rem; justify-content: flex-start;">
+        <div class="stat-pill"><strong>M.Sc.</strong> Data Science & AI</div>
+        <div class="stat-pill"><strong>Chalmers</strong> University</div>
+        <div class="stat-pill"><strong>3×</strong> Internships</div>
+        <div class="stat-pill">🎵 🏊 🏸 🥾</div>
+      </div>
+    </div>
+    <div class="hero-visual fade-in">
+      <img src="photo.jpg" alt="Shijia Tang" class="avatar-frame" style="width: 400px; height: 400px; font-size: 8rem; object-fit: cover;" />
+    </div>
+  </section>
+
+  <section id="about">
+    <span class="section-label">// who i am</span>
+    <h2 class="section-title">A little about me</h2>
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <p>I'm a result-driven Data Science and AI master's graduate from Chalmers University of Technology, passionate about turning machine learning into real-world impact. I love building things that matter, whether that's a churn prediction model that saves a business or an NLP pipeline that makes sense of many customer reviews.</p>
+        <p>I'm curious by nature, collaborative in approach, and always looking for the next challenge. I thrive at the intersection of technical depth and practical creativity — and I believe good data work tells a story.</p>
+        <p>Outside of tech, you'll find me singing (badly, happily), swimming laps, hitting the badminton court, trekking through new trails, or exploring the world's cuisines one dish at a time 🍜</p>
+        <div class="hobby-chips">
+          <span class="chip">🎶 Singing</span>
+          <span class="chip">🏊 Swimming</span>
+          <span class="chip">🏸 Badminton</span>
+          <span class="chip">🥾 Hiking</span>
+          <span class="chip">🍜 Food explorer</span>
+          <span class="chip teal">🌍 Chinese (Native)</span>
+          <span class="chip teal">💬 English (Fluent)</span>
+          <span class="chip sage">🇸🇪 Swedish (Basics)</span>
+        </div>
+      </div>
+      <div class="lang-box">
+        <h4>Quick Profile</h4>
+        <div class="lang-item"><span>📍 Location</span><span class="lang-level">Gothenburg, SE</span></div>
+        <div class="lang-item"><span>🎓 Degree</span><span class="lang-level">M.Sc. Data Science & AI</span></div>
+        <div class="lang-item"><span>🏫 University</span><span class="lang-level">Chalmers / NUAA</span></div>
+        <div class="lang-item"><span>💼 Open to</span><span class="lang-level">Full-time roles</span></div>
+        <div class="lang-item"><span>📧 Email</span><span style="font-size:0.75rem;color:#a08070">sjtang100@gmail.com</span></div>
+        <div class="lang-item"><span>📱 Phone</span><span style="font-size:0.75rem;color:#a08070">+46-763-012-920</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <span class="section-label">// toolbox</span>
+    <h2 class="section-title">Skills & Technologies</h2>
+    <div class="skills-grid fade-in">
+      <div class="skill-card rose">
+        <h4>💻 Programming & Scripting</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span><span class="skill-tag">C/C++</span><span class="skill-tag">SQL</span><span class="skill-tag">Go Lang</span><span class="skill-tag">MATLAB</span><span class="skill-tag">Linux</span><span class="skill-tag">HTML</span>
+        </div>
+      </div>
+      <div class="skill-card teal">
+        <h4>🤖 Machine Learning & AI</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">PyTorch</span><span class="skill-tag">TensorFlow</span><span class="skill-tag">Scikit-learn</span><span class="skill-tag">Keras</span><span class="skill-tag">Deep Learning</span><span class="skill-tag">NLP</span><span class="skill-tag">LLMs</span><span class="skill-tag">NumPy</span>
+        </div>
+      </div>
+      <div class="skill-card sage">
+        <h4>📊 Data & Analytics</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Spark</span><span class="skill-tag">MapReduce</span><span class="skill-tag">PowerBI</span><span class="skill-tag">ETL Pipelines</span><span class="skill-tag">Azure</span><span class="skill-tag">Git</span><span class="skill-tag">XGBoost / LightGBM</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <span class="section-label">// where i've worked</span>
+    <h2 class="section-title">Work Experience</h2>
+    <div class="timeline fade-in">
+
+      <div class="timeline-item">
+        <div class="timeline-dot teal">✦</div>
+        <div class="timeline-card">
+          <div class="timeline-meta">
+            <span class="timeline-company">iMatrics</span>
+            <span class="timeline-date">2026/02 – Present</span>
+          </div>
+          <div class="timeline-role">Data & AI Engineer Intern</div>
+          <p class="timeline-desc">Working on cutting-edge AI-powered media intelligence products, building and optimizing data pipelines and machine learning models that help publishing industry make sense of content at scale.</p>
+          <div class="skill-row">
+            <span class="skill-badge teal">AI Engineering</span><span class="skill-badge teal">LLM</span><span class="skill-badge teal">Data Pipelines</span><span class="skill-badge teal">NLP</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">🤖</div>
+        <div class="timeline-card">
+          <div class="timeline-meta">
+            <span class="timeline-company">ABB</span>
+            <span class="timeline-date">2025/01 – 2025/05</span>
+          </div>
+          <div class="timeline-role">Thesis Worker</div>
+          <p class="timeline-desc">Engineered user behavior analysis by applying embedding, clustering, N-gram analysis, and Markov models to ABB RobotStudio event logs — uncovering patterns for UI optimization and behavior-driven testing.</p>
+          <div class="skill-row">
+            <span class="skill-badge">Machine Learning</span><span class="skill-badge">Pattern Mining</span><span class="skill-badge">Generative AI</span><span class="skill-badge">Azure</span><span class="skill-badge">Git</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">💧</div>
+        <div class="timeline-card">
+          <div class="timeline-meta">
+            <span class="timeline-company">Wenzhou West Yandang Mineral Water Co.</span>
+            <span class="timeline-date">2022/12 – 2023/02</span>
+          </div>
+          <div class="timeline-role">Data Analyst Intern</div>
+          <p class="timeline-desc">Spearheaded customer data strategy integrating market analysis and web analytics. Built and deployed a churn prediction model using classification techniques with Python ETL pipelines and SQL — reducing churn by <strong>15%</strong> in 3 months.</p>
+          <div class="skill-row">
+            <span class="skill-badge">ML / Classification</span><span class="skill-badge">ETL</span><span class="skill-badge">SQL</span><span class="skill-badge">PowerBI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">🛍️</div>
+        <div class="timeline-card">
+          <div class="timeline-meta">
+            <span class="timeline-company">Nanjing Shein E-commerce Co.</span>
+            <span class="timeline-date">2022/06 – 2022/10</span>
+          </div>
+          <div class="timeline-role">Data Analyst Intern</div>
+          <p class="timeline-desc">Co-developed and optimized NLP algorithms and data pipelines to analyze 80,000+ customer reviews — improving sentiment analysis accuracy by <strong>6.5%</strong> and accelerating reporting efficiency by <strong>15%</strong> via real-time analytics integration.</p>
+          <div class="skill-row">
+            <span class="skill-badge">NLP</span><span class="skill-badge">Sentiment Analysis</span><span class="skill-badge">Data Pipelines</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="projects">
+    <span class="section-label">// things i've built</span>
+    <h2 class="section-title">Project Highlights</h2>
+    <div class="projects-grid fade-in">
+      <div class="project-card">
+        <div class="project-date">2024/10 – 2024/12</div>
+        <h4 class="project-title">Zero-Shot Text Classification via Soft Prompt Learning</h4>
+        <p class="project-desc">Researched soft prompt learning for zero-shot classification on Llama, optimizing initialization strategies, text length, and L2 regularization to push generalization boundaries.</p>
+        <div class="skill-row">
+          <span class="skill-badge">NLP</span><span class="skill-badge">Prompt Engineering</span><span class="skill-badge">PyTorch</span><span class="skill-badge">Fine-tuning</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-date">2022/04 – 2022/06</div>
+        <h4 class="project-title">Loan Default Forecasting</h4>
+        <p class="project-desc">Led a data analysis initiative using Python and SQL. Refined an ensemble model (LGBM, XGBoost, CatBoost) — boosting predictive accuracy by <strong>8%</strong> above project targets.</p>
+        <div class="skill-row">
+          <span class="skill-badge">Ensemble ML</span><span class="skill-badge">Feature Engineering</span><span class="skill-badge">XGBoost</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-date">2021/09 – 2021/12</div>
+        <h4 class="project-title">Jiangsu Real Estate Price Clustering</h4>
+        <p class="project-desc">Earned an "Excellent" rating by using knowledge graphs and multi-source clustering to reveal 5 key regional clusters — streamlining resource allocation planning.</p>
+        <div class="skill-row">
+          <span class="skill-badge">Knowledge Graphs</span><span class="skill-badge">Clustering</span><span class="skill-badge">Statistical Analysis</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <span class="section-label">// academic journey</span>
+    <h2 class="section-title">Education and Leadership</h2>
+    <div class="edu-grid fade-in">
+      <div class="edu-card">
+        <div class="edu-icon rose">🎓</div>
+        <div class="edu-info">
+          <h4>Chalmers University of Technology</h4>
+          <div class="edu-degree">M.Sc. Data Science & AI</div>
+          <div class="edu-detail">Design of AI Systems · Applied Machine Learning · Statistical Learning for Big Data · NLP · Neuro-symbolic AI · Computational Techniques for Large-scale Data</div>
+          <span class="edu-date">2023/08 – 2025/07 · Gothenburg, Sweden</span>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-icon teal">🏛️</div>
+        <div class="edu-info">
+          <h4>Nanjing University of Aeronautics and Astronautics</h4>
+          <div class="edu-degree">B.Sc. Information Management & Information Systems</div>
+          <div class="edu-detail">Strong foundation in data systems, information architecture, and analytical methods.</div>
+          <span class="edu-date">2019/08 – 2023/06 · Nanjing, China</span>
+        </div>
+      </div>
+    <div style="margin-top:2rem">
+      <div class="edu-card">
+        <div class="edu-icon rose">🌟</div>
+        <div class="edu-info">
+          <h4>Minister of Organization — Merit League</h4>
+          <div class="edu-degree">Leadership Experience</div>
+          <div class="edu-detail">Directed 5+ career insight events for 200+ undergraduates, fostered partnerships with speakers and alumni, and mentored two sophomores who both secured internships through facilitated connections.</div>
+          <span class="edu-date">2020/09 – 2021/06 · Nanjing, China</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="contact">
+    <span class="section-label">// let's connect</span>
+    <h2 class="section-title">Get in Touch</h2>
+    <p class="contact-sub">I'm always open to new opportunities, collaborations, or just a good chat about AI and data!</p>
+    <div class="contact-links">
+      <a href="mailto:sjtang100@gmail.com" class="contact-link">✉️ sjtang100@gmail.com</a>
+      <a href="tel:+46763012920" class="contact-link">📱 +46-763-012-920</a>
+      <a href="https://www.linkedin.com/in/shijiatang-925a35204" target="_blank" class="contact-link">🔗 LinkedIn</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Shijia Tang · Gothenburg, Sweden</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
