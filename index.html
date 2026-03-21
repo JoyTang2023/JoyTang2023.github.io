@@ -65,8 +65,8 @@
     .lang-item:last-child { border-bottom: none; }
     .lang-level { font-size: 0.75rem; background: var(--light-pink); color: var(--rose); padding: 0.15rem 0.6rem; border-radius: 50px; }
     #skills { background: var(--cream); }
-    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .skill-card { background: white; border-radius: 20px; padding: 1.75rem; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: transform 0.25s, box-shadow 0.25s; border-top: 3px solid transparent; }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: stretch; }
+    .skill-card { background: white; border-radius: 20px; padding: 1.75rem; box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: transform 0.25s, box-shadow 0.25s; border-top: 3px solid transparent; height: 100%; display: flex; flex-direction: column; }
     .skill-card:hover { transform: translateY(-4px); box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
     .skill-card.rose { border-top-color: var(--rose); }
     .skill-card.teal { border-top-color: var(--dusty-teal); }
@@ -162,7 +162,7 @@
       </div>
       <div class="stat-pills" style="margin-top: 1rem; justify-content: flex-start;">
         <div class="stat-pill"><strong>M.Sc.</strong> Data Science & AI</div>
-        <div class="stat-pill"><strong>Chalmers</strong> University</div>
+        <div class="stat-pill"><strong>Chalmers</strong> University</strong>of Technology</div>
         <div class="stat-pill"><strong>3×</strong> Internships</div>
         <div class="stat-pill">🎵 🏊 🏸 🥾</div>
       </div>
@@ -178,7 +178,7 @@
     <div class="about-grid fade-in">
       <div class="about-text">
         <p>I'm a result-driven Data Science and AI master's graduate from Chalmers University of Technology, passionate about turning machine learning into real-world impact. I love building things that matter, whether that's a churn prediction model that saves a business or an NLP pipeline that makes sense of many customer reviews.</p>
-        <p>I'm curious by nature, collaborative in approach, and always looking for the next challenge. I thrive at the intersection of technical depth and practical creativity — and I believe good data work tells a story.</p>
+        <p>I'm curious by nature, collaborative in approach, and always looking for the next challenge. I thrive at the intersection of technical depth and practical creativity, and I believe good data work tells a story.</p>
         <p>Outside of tech, you'll find me singing (badly, happily), swimming laps, hitting the badminton court, trekking through new trails, or exploring the world's cuisines one dish at a time 🍜</p>
         <div class="hobby-chips">
           <span class="chip">🎶 Singing</span>
@@ -210,7 +210,7 @@
       <div class="skill-card rose">
         <h4>💻 Programming & Scripting</h4>
         <div class="skill-tags">
-          <span class="skill-tag">Python</span><span class="skill-tag">C/C++</span><span class="skill-tag">SQL</span><span class="skill-tag">Go Lang</span><span class="skill-tag">MATLAB</span><span class="skill-tag">Linux</span><span class="skill-tag">HTML</span>
+          <span class="skill-tag">Python</span><span class="skill-tag">C/C++</span><span class="skill-tag">SQL</span><span class="skill-tag">Go Lang</span><span class="skill-tag">MATLAB</span><span class="skill-tag">Linux</span><span class="skill-tag">HTML</span><span class="skill-tag">Java</span>
         </div>
       </div>
       <div class="skill-card teal">
@@ -243,7 +243,7 @@
           <div class="timeline-role">Data & AI Engineer Intern</div>
           <p class="timeline-desc">Working on cutting-edge AI-powered media intelligence products, building and optimizing data pipelines and machine learning models that help publishing industry make sense of content at scale.</p>
           <div class="skill-row">
-            <span class="skill-badge teal">AI Engineering</span><span class="skill-badge teal">LLM</span><span class="skill-badge teal">Data Pipelines</span><span class="skill-badge teal">NLP</span>
+            <span class="skill-badge teal">AI Engineering</span><span class="skill-badge teal">LLM</span><span class="skill-badge teal">Data Pipelines</span><span class="skill-badge teal">Software Development</span><span class="skill-badge teal">Java</span>
           </div>
         </div>
       </div>
@@ -271,9 +271,9 @@
             <span class="timeline-date">2022/12 – 2023/02</span>
           </div>
           <div class="timeline-role">Data Analyst Intern</div>
-          <p class="timeline-desc">Spearheaded customer data strategy integrating market analysis and web analytics. Built and deployed a churn prediction model using classification techniques with Python ETL pipelines and SQL — reducing churn by <strong>15%</strong> in 3 months.</p>
+          <p class="timeline-desc">Spearheaded customer data strategy integrating market analysis and web analytics. Built and deployed a churn prediction model using classification techniques with Python ETL pipelines and SQL. Reduced churn by <strong>15%</strong> in 3 months.</p>
           <div class="skill-row">
-            <span class="skill-badge">ML / Classification</span><span class="skill-badge">ETL</span><span class="skill-badge">SQL</span><span class="skill-badge">PowerBI</span>
+            <span class="skill-badge">ML / Classification</span><span class="skill-badge">Feature Engineering</span><span class="skill-badge">Statistical Analysis</span><span class="skill-badge">ETL</span><span class="skill-badge">SQL</span><span class="skill-badge">PowerBI</span>
           </div>
         </div>
       </div>
@@ -288,7 +288,7 @@
           <div class="timeline-role">Data Analyst Intern</div>
           <p class="timeline-desc">Co-developed and optimized NLP algorithms and data pipelines to analyze 80,000+ customer reviews — improving sentiment analysis accuracy by <strong>6.5%</strong> and accelerating reporting efficiency by <strong>15%</strong> via real-time analytics integration.</p>
           <div class="skill-row">
-            <span class="skill-badge">NLP</span><span class="skill-badge">Sentiment Analysis</span><span class="skill-badge">Data Pipelines</span>
+            <span class="skill-badge">NLP</span><span class="skill-badge">Sentiment Analysis</span><span class="skill-badge">Data Pipelines</span><span class="skill-badge">Problem Solving</span>
           </div>
         </div>
       </div>
